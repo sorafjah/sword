@@ -50,7 +50,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);
   box-shadow:0 5px 0 #a86e00,0 8px 20px rgba(0,0,0,.5);cursor:pointer;min-height:52px;touch-action:manipulation;}
 #btnStart:disabled{opacity:.4;box-shadow:none;}
 #btnStart:active{transform:translateY(3px);box-shadow:0 2px 0 #a86e00;}
-#howto{font-size:11px;color:#8f88bd;text-align:center;line-height:1.7;max-width:640px;}
+#howto{font-size:11px;color:#8f88bd;text-align:center;line-height:1.7;max-width:660px;}
 #howto b{color:#ffd24a;}
 
 /* ===== HUD ===== */
@@ -104,7 +104,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);
 
 /* ===== タッチ操作 ===== */
 #ctrl{z-index:18;pointer-events:none;}
-#stickZone{position:absolute;left:0;bottom:0;width:46%;height:62%;pointer-events:auto;touch-action:none;}
+#stickZone{position:absolute;left:0;bottom:0;width:44%;height:62%;pointer-events:auto;touch-action:none;}
 #stickBase{position:absolute;width:132px;height:132px;border-radius:50%;
   background:radial-gradient(circle,rgba(255,255,255,.08),rgba(255,255,255,.03) 70%);
   border:2px solid rgba(255,255,255,.25);left:34px;bottom:calc(34px + env(safe-area-inset-bottom));}
@@ -112,29 +112,33 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);
   background:radial-gradient(circle at 35% 30%,#8f88c4,#4a4478);border:2px solid rgba(255,255,255,.5);
   box-shadow:0 4px 10px rgba(0,0,0,.5);}
 #btns{position:absolute;right:calc(14px + env(safe-area-inset-right));bottom:calc(20px + env(safe-area-inset-bottom));
-  width:230px;height:230px;pointer-events:auto;}
+  width:250px;height:240px;pointer-events:auto;}
 .abtn{position:absolute;border-radius:50%;display:flex;flex-direction:column;
   align-items:center;justify-content:center;font-weight:700;color:#fff;touch-action:none;
   border:3px solid rgba(255,255,255,.4);box-shadow:0 4px 0 rgba(0,0,0,.5),inset 0 -6px 0 rgba(0,0,0,.25);
   text-shadow:0 2px 2px rgba(0,0,0,.5);}
 .abtn small{font-size:9px;font-weight:400;opacity:.9;}
 .abtn.on{transform:scale(.92);box-shadow:0 1px 0 rgba(0,0,0,.5),inset 0 -3px 0 rgba(0,0,0,.25);filter:brightness(1.35);}
-/* 剣(大):ためて はなつ */
-#bS{width:104px;height:104px;font-size:22px;right:18px;bottom:20px;
+.abtn.chargeGlow{filter:brightness(1.5);box-shadow:0 0 24px #9db4ff,0 4px 0 rgba(0,0,0,.5),inset 0 -6px 0 rgba(0,0,0,.25);}
+.abtn.readyGlow{box-shadow:0 0 34px #b6ffcf,0 0 12px #fff,0 4px 0 rgba(0,0,0,.5);}
+/* 縦斬り(上段)/横斬り(中段) */
+#bV{width:88px;height:88px;font-size:20px;right:14px;bottom:126px;
   background:radial-gradient(circle at 35% 30%,#eaf2ff,#7f9dff);}
-#bS.charge{filter:brightness(1.5);box-shadow:0 0 24px #9db4ff,0 4px 0 rgba(0,0,0,.5),inset 0 -6px 0 rgba(0,0,0,.25);}
-#bS.ready{box-shadow:0 0 34px #b6ffcf,0 0 12px #fff,0 4px 0 rgba(0,0,0,.5);}
-#bG{width:78px;height:78px;font-size:16px;right:132px;bottom:26px;
-  background:radial-gradient(circle at 35% 30%,#8fe8a8,#1da65a);}
-#bJ{width:78px;height:78px;font-size:16px;right:60px;bottom:118px;
+#bY{width:88px;height:88px;font-size:20px;right:14px;bottom:22px;
+  background:radial-gradient(circle at 35% 30%,#ffd9ec,#e06aa8);}
+#bJ{width:72px;height:72px;font-size:15px;right:118px;bottom:136px;
   background:radial-gradient(circle at 35% 30%,#ffe58f,#d6a51d);}
+#bC{width:72px;height:72px;font-size:15px;right:118px;bottom:34px;
+  background:radial-gradient(circle at 35% 30%,#8fe8a8,#1da65a);}
 #cmdHint{position:absolute;left:50%;transform:translateX(-50%);
   bottom:calc(10px + env(safe-area-inset-bottom));font-size:11px;color:rgba(255,255,255,.55);
-  text-shadow:0 1px 2px #000;pointer-events:none;text-align:center;}
+  text-shadow:0 1px 2px #000;pointer-events:none;text-align:center;line-height:1.5;}
 @media (max-width:700px){
-  #btns{width:210px;height:210px;}
-  #bS{width:94px;height:94px;right:14px;bottom:16px;}
-  #bG{right:116px;bottom:22px;} #bJ{right:52px;bottom:104px;}
+  #btns{width:222px;height:214px;}
+  #bV{width:80px;height:80px;right:10px;bottom:114px;}
+  #bY{width:80px;height:80px;right:10px;bottom:18px;}
+  #bJ{width:64px;height:64px;right:104px;bottom:122px;}
+  #bC{width:64px;height:64px;right:104px;bottom:28px;}
 }
 </style>
 </head>
@@ -148,10 +152,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);
   <div id="charGrid"></div>
   <button id="btnStart" disabled>この 刀で 出撃!</button>
   <div id="howto">
-    <b>移動:</b> 左スティック 左右=前進/後退 ・ 上下=まわり込み(サイドステップ)<br>
-    <b>剣ボタン:</b> ポンと押す=通常斬り / <b>押し続けて はなす</b>=溜め必殺斬り!(0.6秒ほど溜めると 刀が強く光る)<br>
-    <b>ガード:</b> 相手の斬撃を ふせぐ ・ <b>ジャンプ:</b> 飛んで かわす<br>
-    <span style="color:#6f689a">キーボード: 矢印=移動 / Z=剣(長押しで必殺) / C=ガード / Space=ジャンプ</span>
+    <b>移動:</b> 左スティック 左右=前進/後退 ・ 上下=まわり込み<br>
+    <b>縦斬り(上段):</b> 頭上から振り下ろす → 相手は <b>しゃがみ</b> でかわせる<br>
+    <b>横斬り(中段):</b> 横になぎ払う → 相手は <b>ジャンプ</b> でかわせる<br>
+    <b>必殺:</b> 縦・横どちらかのボタンを <b>押し続けて→はなす</b>(0.6秒ほどで刀が強く光る)<br>
+    <span style="color:#6f689a">キーボード: 矢印=移動 / Z=縦斬り / X=横斬り / C=しゃがみ / Space=ジャンプ</span>
   </div>
 </div>
 
@@ -191,11 +196,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);
 <div id="ctrl" class="overlay hidden">
   <div id="stickZone"><div id="stickBase"><div id="stickKnob"></div></div></div>
   <div id="btns">
-    <div class="abtn" id="bS">剣<small>ためて必殺</small></div>
-    <div class="abtn" id="bG">G<small>ガード</small></div>
+    <div class="abtn" id="bV">縦<small>ためて必殺</small></div>
+    <div class="abtn" id="bY">横<small>ためて必殺</small></div>
     <div class="abtn" id="bJ">JP<small>ジャンプ</small></div>
+    <div class="abtn" id="bC">▼<small>しゃがみ</small></div>
   </div>
-  <div id="cmdHint">剣ボタンを 長押し→はなす で 必殺斬り!</div>
+  <div id="cmdHint">縦斬りは ▼しゃがみ で、横斬りは ジャンプ で かわせ!<br>ボタン長おし→はなす で 必殺斬り!</div>
 </div>
 
 <script type="importmap">
@@ -211,14 +217,14 @@ import * as CANNON from 'cannon-es';
 /* ============================================================
    0. 定数・キャラクターデータ
 ============================================================ */
-const STAGE_X = 8.6;          // ステージ端(これ以上は追い込まれる)
-const STAGE_Z = 3.6;          // 奥行き(まわり込み用に少し広め)
+const STAGE_X = 8.6;
+const STAGE_Z = 3.6;
 const ROUNDS_TO_WIN = 2;
 const ROUND_TIME = 60;
 
 // 必殺の溜め判定(ゆるめ)
-const CHARGE_READY = 0.60;    // ここまで溜めると「溜め完了」演出&最大発光
-const CHARGE_MIN   = 0.42;    // これ以上溜めて離せば必殺(多少前後してもOK)
+const CHARGE_READY = 0.60;   // 溜め完了演出&最大発光
+const CHARGE_MIN   = 0.42;   // これ以上溜めて離せば必殺
 
 const CHARS = [
   { id:'gou', name:'ゴウ', type:'パワー型', emoji:'剛',
@@ -254,11 +260,12 @@ const CHARS = [
     stats:{pow:.55, spd:.7, rch:.55},
     desc:'素早い斬撃で相手をゆさぶる万能剣士' },
 ];
-// 通常斬り・必殺のパラメータを派生生成
+// 縦斬り(上段: しゃがみで回避)/横斬り(中段: ジャンプで回避)/各必殺
 CHARS.forEach(c=>{
-  c.slash  ={dmg:c.heavy.dmg, startup:.15, active:.16, rec:.30, kb:c.heavy.kb};
-  c.special={name:c.sp.name, dmg:Math.round(c.heavy.dmg*1.7)+6,
-             startup:.30, active:.20, rec:.42, kb:c.heavy.kb*1.7+2, chip:7};
+  c.vslash={kind:'v', dmg:c.heavy.dmg, startup:.22, active:.18, rec:.30, kb:c.heavy.kb};
+  c.hslash={kind:'h', dmg:c.light.dmg+2, startup:.20, active:.20, rec:.26, kb:c.heavy.kb*.7};
+  c.vsp   ={kind:'v', dmg:Math.round(c.heavy.dmg*1.7)+6, startup:.30, active:.22, rec:.42, kb:c.heavy.kb*1.7+2};
+  c.hsp   ={kind:'h', dmg:Math.round(c.heavy.dmg*1.5)+5, startup:.28, active:.24, rec:.40, kb:c.heavy.kb*1.5+2};
 });
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -303,12 +310,11 @@ const AudioEngine = {
     src.connect(f); f.connect(g); g.connect(this.master);
     src.start(t);
   },
-  // 効果音プリセット(刀ベース)
-  sSwing(){ this.noise(.10,.28,4200,'highpass'); this.tone(680,.09,'square',.10,-260); },
+  sSwingV(){ this.noise(.10,.28,4200,'highpass'); this.tone(680,.10,'square',.10,-320); },
+  sSwingH(){ this.noise(.12,.28,3600,'highpass'); this.tone(420,.12,'square',.10,220); },
   sHit(big){ if(big){ this.noise(.18,.5,1500); this.tone(120,.16,'sawtooth',.35,-70);}
              else { this.noise(.09,.32,2600); this.tone(200,.07,'square',.2,-90);} },
-  sGuard(){ this.tone(1200,.05,'square',.16,-200); this.noise(.10,.26,5200,'highpass');
-            this.tone(760,.05,'square',.14,-140); },
+  sDodge(){ this.tone(900,.07,'square',.14,500); },
   sJump(){ this.tone(220,.14,'square',.18,260); },
   sChargeTick(n){ this.tone(300+n*70,.05,'square',.10,120); },
   sReady(){ this.tone(880,.10,'square',.22,300); this.tone(1320,.12,'square',.14,0,.05); },
@@ -370,7 +376,6 @@ scene.fog=new THREE.Fog(0x0a0818,15,40);
 const camera=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,.1,100);
 camera.position.set(0,3.2,10);
 
-// 暗めに調整。ただしシルエットが黒つぶれしない程度の環境光は残す
 scene.add(new THREE.HemisphereLight(0x5866b0,0x161226,.42));
 const sun=new THREE.DirectionalLight(0xdfe0ff,.55);
 sun.position.set(5,12,6);
@@ -381,7 +386,6 @@ sun.shadow.camera.top=14;sun.shadow.camera.bottom=-6;
 scene.add(sun);
 const rim=new THREE.DirectionalLight(0x6a5cff,.35); rim.position.set(-6,6,-8); scene.add(rim);
 
-// 床(タイル模様。暗め)
 function makeFloorTex(){
   const cv=document.createElement('canvas');cv.width=cv.height=256;
   const g=cv.getContext('2d');
@@ -400,14 +404,12 @@ const floor=new THREE.Mesh(
   new THREE.MeshStandardMaterial({map:makeFloorTex(),roughness:.9}));
 floor.position.y=-.5; floor.receiveShadow=true; scene.add(floor);
 
-// ステージ端の警告ライン(発光)
 const edgeMat=new THREE.MeshStandardMaterial({color:0xffd24a,emissive:0x6a5000,emissiveIntensity:1.2,roughness:.5});
 [-1,1].forEach(s=>{
   const bar=new THREE.Mesh(new THREE.BoxGeometry(.25,.1,STAGE_Z*2+3),edgeMat);
   bar.position.set(s*(STAGE_X+.6),.06,0); scene.add(bar);
 });
 
-// 周囲の柱・発光オーブ(暗い空間の光源として)
 const pillarGeo=new THREE.CylinderGeometry(.5,.7,6,6);
 for(let i=0;i<10;i++){
   const p=new THREE.Mesh(pillarGeo,new THREE.MeshStandardMaterial({
@@ -419,7 +421,6 @@ for(let i=0;i<10;i++){
     new THREE.MeshBasicMaterial({color:0xffce66}));
   orb.position.copy(p.position); orb.position.y=5.7; scene.add(orb);
 }
-// 星空パーティクル
 {
   const g=new THREE.BufferGeometry();
   const pos=new Float32Array(300*3);
@@ -442,12 +443,13 @@ world.addBody(groundBody);
 
 /* ============================================================
    4. 入力システム(タッチ+キーボード)
-   抽象入力: moveX(相手方向が+), sideZ(奥行き), swordHeld(長押し), jump(エッジ), guard
+   抽象入力: moveX(相手方向が+), sideZ, vHeld(縦斬り), hHeld(横斬り),
+             crouch(しゃがみ), jump(エッジ)
 ============================================================ */
-function newInput(){return{moveX:0,sideZ:0,swordHeld:false,jump:false,guard:false};}
+function newInput(){return{moveX:0,sideZ:0,vHeld:false,hHeld:false,crouch:false,jump:false};}
 
 const Pad={
-  stick:{x:0,y:0}, btn:{S:false,G:false,J:false}, prevJ:false, keys:{},
+  stick:{x:0,y:0}, btn:{V:false,Y:false,C:false,J:false}, prevJ:false, keys:{},
   read(face){
     const inp=newInput();
     let kx=0, kz=0;
@@ -457,14 +459,13 @@ const Pad={
     if(this.keys['ArrowDown']||this.keys['s'])kz+=1;
     const sx=this.stick.x, sy=this.stick.y;
     if(Math.abs(sx)>.3)kx=Math.sign(sx);
-    if(Math.abs(sy)>.3)kz=clamp(sy/.75,-1,1);   // 上=マイナスZ / 下=プラスZ(両方向まわり込み)
-    inp.moveX=kx*face;                           // 相手方向を+に変換
+    if(Math.abs(sy)>.3)kz=clamp(sy/.75,-1,1);   // 上下スティック=まわり込み(両方向)
+    inp.moveX=kx*face;
     inp.sideZ=kz;
-    const S=this.btn.S||this.keys['z']||this.keys['x'];
-    const G=this.btn.G||this.keys['c'];
+    inp.vHeld=!!(this.btn.V||this.keys['z']);
+    inp.hHeld=!!(this.btn.Y||this.keys['x']);
+    inp.crouch=!!(this.btn.C||this.keys['c']);
     const J=this.btn.J||this.keys[' '];
-    inp.swordHeld=!!S;
-    inp.guard=!!G;
     if(J&&!this.prevJ)inp.jump=true;
     this.prevJ=!!J;
     return inp;
@@ -500,11 +501,11 @@ function moveStick(e){
   stickKnob.style.transform=`translate(${dx}px,${dy}px)`;
 }
 // アクションボタン
-[['bS','S'],['bG','G'],['bJ','J']].forEach(([id,key])=>{
+[['bV','V'],['bY','Y'],['bC','C'],['bJ','J']].forEach(([id,key])=>{
   const el=document.getElementById(id);
   el.addEventListener('pointerdown',e=>{e.preventDefault();Pad.btn[key]=true;el.classList.add('on');
     AudioEngine.resume();});
-  const off=e=>{Pad.btn[key]=false;el.classList.remove('on','charge','ready');};
+  const off=e=>{Pad.btn[key]=false;el.classList.remove('on');};
   el.addEventListener('pointerup',off);
   el.addEventListener('pointercancel',off);
   el.addEventListener('pointerleave',off);
@@ -541,22 +542,28 @@ function updateParticles(dt){
   }
 }
 
-// 三日月状の斬撃フラッシュ
+// 斬撃フラッシュ(縦=正面の縦弧 / 横=水平のなぎ払い弧)
 const slashes=[];
-function spawnSlashArc(f,big){
+function spawnSlashArc(f,big,kind){
   const col=f.def.saber;
-  const r0=big?0.55:0.4, r1=big?1.7:1.15;
+  const r0=big?0.55:0.4, r1=big?1.8:1.2;
   const geo=new THREE.RingGeometry(r0,r1,26,1,Math.PI*0.12,Math.PI*0.95);
   const mat=new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.85,
     side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false});
   const arc=new THREE.Mesh(geo,mat);
   const dir=f.face;
-  arc.position.set(f.mesh.position.x+dir*0.85, f.mesh.position.y+1.2*f.def.scale, f.mesh.position.z+0.15);
-  arc.rotation.z = -dir*Math.PI*0.55;
-  arc.scale.set(dir,1,1);
+  if(kind==='h'){
+    arc.position.set(f.mesh.position.x+dir*0.7, f.mesh.position.y+1.0*f.def.scale, f.mesh.position.z);
+    arc.rotation.x=-Math.PI/2;                 // 水平面
+    arc.rotation.z=dir>0? -Math.PI*0.35 : Math.PI*0.65;
+    slashes.push({m:arc,life:big?.32:.22,max:big?.32:.22,grow:big?2.4:1.8,spin:-dir*5});
+  }else{
+    arc.position.set(f.mesh.position.x+dir*0.85, f.mesh.position.y+1.2*f.def.scale, f.mesh.position.z+0.15);
+    arc.rotation.z=-dir*Math.PI*0.55;
+    arc.scale.set(dir,1,1);
+    slashes.push({m:arc,life:big?.30:.20,max:big?.30:.20,grow:big?2.4:1.8,spin:-dir*3});
+  }
   scene.add(arc);
-  slashes.push({m:arc,life:big?.30:.20,max:big?.30:.20,grow:big?2.4:1.8,spin:-dir*3});
-  // 白い芯のフラッシュ
   spawnBurst(arc.position, 0xffffff, big?10:5, big?5:3, .12, .28);
 }
 function updateSlashes(dt){
@@ -564,7 +571,7 @@ function updateSlashes(dt){
     const s=slashes[i]; s.life-=dt;
     s.m.material.opacity=(s.life/s.max)*.85;
     const g=1+s.grow*dt;
-    s.m.scale.x*=g*Math.sign(s.m.scale.x); s.m.scale.y*=g;
+    s.m.scale.x*=g; s.m.scale.y*=g;
     s.m.rotation.z+=s.spin*dt;
     if(s.life<=0){scene.remove(s.m);s.m.geometry.dispose();s.m.material.dispose();slashes.splice(i,1);}
   }
@@ -576,7 +583,7 @@ function updateSlashes(dt){
 class Fighter{
   constructor(def,isPlayer){
     this.def=def; this.isPlayer=isPlayer;
-    this._upperRX=0;
+    this._upperRX=0; this._upperRY=0; this._swdP=0;
     this.buildMesh();
     const s=def.scale;
     this.body=new CANNON.Body({
@@ -596,16 +603,14 @@ class Fighter{
     const M=(geo,m)=>{const o=new THREE.Mesh(geo,m);o.castShadow=true;return o;};
     this.mesh=new THREE.Group();
     this.bodyG=new THREE.Group(); this.mesh.add(this.bodyG);
-    // ★上半身グループ(胴・頭・腕)。しゃがみ/ダウン等はこのグループだけを動かし
-    //   脚(bodyG直下)を地面に残すことで「めり込み」を防ぐ
+    // 上半身グループ(胴・頭・腕)。しゃがみ/ダウン等はこのグループだけを動かし
+    // 脚(bodyG直下)を地面に残すことで「めり込み」を防ぐ
     this.upper=new THREE.Group(); this.bodyG.add(this.upper);
 
-    // 胴体
     this.torso=M(new THREE.BoxGeometry(.62*d.width,.7,.42),mat(d.color));
     this.torso.position.y=1.05*s; this.upper.add(this.torso);
     const belt=M(new THREE.BoxGeometry(.64*d.width,.14,.44),mat(0x222222));
     belt.position.y=-.32; this.torso.add(belt);
-    // 頭
     this.head=M(new THREE.BoxGeometry(.42,.42,.4),mat(d.skin));
     this.head.position.y=1.62*s; this.upper.add(this.head);
     const hair=M(new THREE.BoxGeometry(.46,.18,.44),mat(d.sub));
@@ -613,7 +618,6 @@ class Fighter{
     const eyeM=new THREE.MeshBasicMaterial({color:0x111111});
     [-.1,.1].forEach(x=>{const e=new THREE.Mesh(new THREE.BoxGeometry(.06,.09,.02),eyeM);
       e.position.set(x,.02,.21);this.head.add(e);});
-    // 腕(肩ピボット)
     this.armL=new THREE.Group(); this.armR=new THREE.Group();
     [[this.armL,-1],[this.armR,1]].forEach(([g,sd])=>{
       g.position.set(sd*.42*d.width,1.32*s,0);
@@ -623,9 +627,7 @@ class Fighter{
       fist.position.y=-.52; g.add(fist);
       this.upper.add(g);
     });
-    // ★刀(ライトセーバー風)を右手に装着 — 腕と一緒に振れる
     this.buildSword(d,s);
-    // 脚(腰ピボット。bodyG直下=上半身の上下動と独立)
     this.legL=new THREE.Group(); this.legR=new THREE.Group();
     [[this.legL,-1],[this.legR,1]].forEach(([g,sd])=>{
       g.position.set(sd*.17*d.width,.72*s,0);
@@ -635,7 +637,6 @@ class Fighter{
       foot.position.set(0,-.62,.05); g.add(foot);
       this.bodyG.add(g);
     });
-    // 影の輪
     const ring=new THREE.Mesh(new THREE.RingGeometry(.3,.55,20),
       new THREE.MeshBasicMaterial({color:0x000000,transparent:true,opacity:.35}));
     ring.rotation.x=-Math.PI/2; ring.position.y=.02; this.mesh.add(ring);
@@ -644,12 +645,12 @@ class Fighter{
   }
   buildSword(d,s){
     const sCol=d.saber, sGlow=d.saberGlow;
-    const bladeLen=1.05*s;   // 長すぎると構え・ダウン時に床へ刺さるため短めに
+    const bladeLen=1.05*s;
     this.bladeLen=bladeLen; this.bladeExt=1;
     this.sword=new THREE.Group();
-    this.sword.position.set(0,-0.58,0.06);   // 右手のこぶし付近。刃は-Y方向(腕の延長)へ
+    this.sword.position.set(0,-0.55,0.10);       // 右手のこぶし位置
+    this.sword.rotation.x=-Math.PI/2;            // ★腕に対して垂直に握る(刃はこぶしの正面方向)
     this.armR.add(this.sword);
-    // 柄(つか)
     const hilt=new THREE.Mesh(new THREE.CylinderGeometry(.055,.062,.28,10),
       new THREE.MeshStandardMaterial({color:0x24242c,metalness:.7,roughness:.35}));
     hilt.position.y=-.02; this.sword.add(hilt);
@@ -657,26 +658,21 @@ class Fighter{
       new THREE.MeshStandardMaterial({color:0x3a3a44,metalness:.7,roughness:.35}));
     guardPc.position.y=-.16; this.sword.add(guardPc);
     const bladeY=-0.16-bladeLen/2;
-    // 芯(白):MeshBasicで常時発光
     this.bladeCore=new THREE.Mesh(new THREE.CylinderGeometry(.036,.028,bladeLen,10),
       new THREE.MeshBasicMaterial({color:0xffffff}));
     this.bladeCore.position.y=bladeY; this.sword.add(this.bladeCore);
-    // 内側グロー(キャラ色・加算)
     this.bladeGlow=new THREE.Mesh(new THREE.CylinderGeometry(.10,.08,bladeLen,14),
       new THREE.MeshBasicMaterial({color:sCol,transparent:true,opacity:.5,
         blending:THREE.AdditiveBlending,depthWrite:false}));
     this.bladeGlow.position.y=bladeY; this.sword.add(this.bladeGlow);
-    // 外側グロー(淡いキャラ色・加算)
     this.bladeGlow2=new THREE.Mesh(new THREE.CylinderGeometry(.19,.14,bladeLen*.98,14),
       new THREE.MeshBasicMaterial({color:sGlow,transparent:true,opacity:.2,
         blending:THREE.AdditiveBlending,depthWrite:false}));
     this.bladeGlow2.position.y=bladeY; this.sword.add(this.bladeGlow2);
-    // 刃先の丸い光
     this.bladeTip=new THREE.Mesh(new THREE.SphereGeometry(.09,10,10),
       new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.9,
         blending:THREE.AdditiveBlending,depthWrite:false}));
     this.bladeTip.position.y=bladeY-bladeLen/2; this.sword.add(this.bladeTip);
-    // 刃先のPointLight(控えめに周囲を照らす)
     this.tipLight=new THREE.PointLight(sCol,1.1,4.2,2);
     this.tipLight.position.y=bladeY-bladeLen*0.35; this.sword.add(this.tipLight);
     this._glowBase={g1:.5,g2:.2,tip:1.1};
@@ -684,9 +680,10 @@ class Fighter{
   reset(x){
     this.hp=this.def.hp; this.maxHp=this.def.hp;
     this.state='idle'; this.stateT=0;
-    this.dead=false; this.grounded=true;
+    this.dead=false; this.grounded=true; this.crouching=false;
     this.attack=null; this.hitDone=false; this._arcDone=false;
-    this.charging=false; this.chargeT=0; this._readyPinged=false; this._lastTick=0;
+    this.charging=false; this.chargeT=0; this.chargeType='v';
+    this._readyPinged=false; this._lastTick=0;
     this.bladeExt=1; this._prevSword=false;
     this.saberBoost=1; this.comboOn=0; this.hitstun=0;
     this.body.position.set(x,this.def.scale*.88,0);
@@ -694,33 +691,34 @@ class Fighter{
     this.mesh.rotation.set(0,0,0);
     this.bodyG.rotation.set(0,0,0);
     this.upper.position.set(0,0,0); this.upper.rotation.set(0,0,0);
-    this._upperRX=0;
+    this._upperRX=0; this._upperRY=0; this._swdP=0;
     // 四肢もidle姿勢へ即スナップ(KO姿勢のまま刀身だけ復活すると床を貫くため)
-    this.armL.rotation.set(-.25,0,0); this.armR.rotation.set(.95,0,0);
+    this.armL.rotation.set(-.25,0,0); this.armR.rotation.set(-1.2,0,0);
     this.legL.rotation.set(0,0,0); this.legR.rotation.set(0,0,0);
+    this.sword.rotation.set(-Math.PI/2,0,0);
     this.face=1;
   }
-  guarding(){ return this.state==='guard'||this.state==='blockstun'; }
-  busy(){ return ['slash','special','hitstun','blockstun','down','ko','win'].includes(this.state); }
+  busy(){ return ['slash','special','hitstun','down','ko','win'].includes(this.state); }
   setState(s){ this.state=s; this.stateT=0; this.hitDone=false; this._arcDone=false; }
 
-  startSlash(){
-    this.attack={...this.def.slash};
+  startSlash(kind){
+    this.attack={...(kind==='h'?this.def.hslash:this.def.vslash)};
     this.setState('slash');
-    AudioEngine.sSwing();
+    if(kind==='h')AudioEngine.sSwingH(); else AudioEngine.sSwingV();
   }
-  startSpecial(){
-    this.attack={...this.def.special};
+  startSpecial(kind){
+    this.attack={...(kind==='h'?this.def.hsp:this.def.vsp)};
     this.setState('special');
     this.saberBoost=2.6;
     spawnBurst(new THREE.Vector3(this.mesh.position.x,this.mesh.position.y+1.2*this.def.scale,this.mesh.position.z),
       this.def.saber,10,3,.16,.4);
-    AudioEngine.sSwing();
+    if(kind==='h')AudioEngine.sSwingH(); else AudioEngine.sSwingV();
   }
   takeHit(dmg,kb,big=false){
     if(this.dead)return;
     this.hp=Math.max(0,this.hp-dmg);
-    this.charging=false; this.chargeT=0; this.attack=null; this.saberBoost=1;
+    this.charging=false; this.chargeT=0; this.attack=null;
+    this.saberBoost=1; this.crouching=false;
     this.body.velocity.x=kb; this.body.velocity.z*=0.2;
     spawnBurst(new THREE.Vector3(this.mesh.position.x,this.mesh.position.y+1.1*this.def.scale,this.mesh.position.z),
       0xffdd66,big?16:9,big?6:4,.14,.45);
@@ -732,23 +730,13 @@ class Fighter{
     if(big){ this.setState('down'); this.body.velocity.y=4.6; }
     else { this.setState('hitstun'); this.hitstun=dmg>=10?.5:.34; }
   }
-  takeBlock(chip,kb){
-    if(chip)this.hp=Math.max(1,this.hp-chip);
-    this.charging=false; this.chargeT=0;
-    this.body.velocity.x=kb;
-    this.setState('blockstun');
-    AudioEngine.sGuard();
-    spawnBurst(new THREE.Vector3(this.mesh.position.x+this.face*.6,
-      this.mesh.position.y+1.15*this.def.scale,this.mesh.position.z),0xbfe0ff,8,3,.10,.32);
-  }
 
   update(dt,inp){
     const d=this.def, b=this.body;
     this.stateT+=dt;
-    this.saberBoost=1; // 既定。special中のみ下で上書き
+    this.saberBoost=1;
     const prevSword=this._prevSword||false;
-    this._prevSword=!!(inp&&inp.swordHeld);
-    // 接地判定
+    this._prevSword=!!(inp&&(inp.vHeld||inp.hHeld));
     this.grounded=b.position.y<=d.scale*.88+.06 && Math.abs(b.velocity.y)<3;
     if(this.opponent && !this.dead){
       this.face=Math.sign(this.opponent.body.position.x-b.position.x)||this.face;
@@ -766,11 +754,6 @@ class Fighter{
       if(this.hitstun<=0)this.setState('idle');
       return this.applyPose(dt);
     }
-    if(S==='blockstun'){
-      b.velocity.x*=.85;
-      if(this.stateT>.20)this.setState('guard');
-      return this.applyPose(dt);
-    }
     // 斬撃・必殺
     if(S==='slash'||S==='special'){
       const A=this.attack;
@@ -779,7 +762,7 @@ class Fighter{
       if(S==='special'){
         if(this.stateT<A.startup) this.saberBoost=lerp(1.8,2.8,this.stateT/A.startup);
         else this.saberBoost=lerp(2.8,1.2,clamp((this.stateT-A.startup)/(A.active+A.rec),0,1));
-        if(active){ b.velocity.x=this.face*4.6; }       // 踏み込み
+        if(active){ b.velocity.x=this.face*4.6; }
         else if(this.grounded) b.velocity.x*=.82;
       }else{
         if(this.grounded) b.velocity.x*=.85;
@@ -787,7 +770,7 @@ class Fighter{
       if(active && !this.hitDone) this.tryHit(A,S==='special');
       if(this.stateT>=A.startup && !this._arcDone){
         this._arcDone=true;
-        spawnSlashArc(this,S==='special');
+        spawnSlashArc(this,S==='special',A.kind);
         if(S==='special'){ AudioEngine.sSpecial(); shake(.3,.36); }
       }
       if(this.stateT>=total){ this.saberBoost=1; this.setState('idle'); }
@@ -797,42 +780,44 @@ class Fighter{
     // ===== 通常行動 =====
     if(!inp)inp=newInput();
     if(this.grounded){
-      if(inp.guard){
-        this.charging=false; this.chargeT=0;
-        this.setStateIf('guard');
-        b.velocity.x*=.8; b.velocity.z*=.8;
-      }
-      else if(this.charging || inp.swordHeld){
-        if(inp.swordHeld){
+      const heldType=this.charging?this.chargeType:(inp.vHeld?'v':(inp.hHeld?'h':null));
+      if(heldType){
+        const stillHeld=(heldType==='v')?inp.vHeld:inp.hHeld;
+        if(stillHeld){
           // 溜め継続
-          if(!this.charging){ this.charging=true; this.chargeT=0; this._readyPinged=false; this._lastTick=0; }
-          this.charging=true;
-          this.chargeT+=dt;
+          if(!this.charging){ this.charging=true; this.chargeType=heldType; this.chargeT=0;
+            this._readyPinged=false; this._lastTick=0; }
+          this.chargeT+=dt; this.crouching=false;
           this.setStateIf('charge');
-          // 溜め中はゆっくり動ける(サイドステップで位置調整可)
           const vx=inp.moveX*this.face*d.speed*.32;
           const vz=inp.sideZ*d.speed*.4;
           b.velocity.x=lerp(b.velocity.x,vx,.25);
           b.velocity.z=lerp(b.velocity.z,vz,.25);
-          // 溜め演出音
           const tickStep=Math.floor(this.chargeT/0.14);
           if(tickStep>this._lastTick && this.chargeT<CHARGE_READY){ this._lastTick=tickStep; AudioEngine.sChargeTick(tickStep); }
           if(this.chargeT>=CHARGE_MIN && !this._readyPinged){ this._readyPinged=true; AudioEngine.sReady(); }
         }else{
-          // 手を離した → 溜め判定
+          // 離した → 溜め判定(ゆるめ)
           const charged=this.chargeT>=CHARGE_MIN;
           this.charging=false; this.chargeT=0;
-          if(charged) this.startSpecial();
-          else this.startSlash();
+          if(charged) this.startSpecial(heldType);
+          else this.startSlash(heldType);
         }
       }
+      else if(inp.crouch){
+        this.crouching=true;
+        this.setStateIf('crouch');
+        b.velocity.x*=.7; b.velocity.z*=.7;
+      }
       else if(inp.jump){
+        this.crouching=false;
         b.velocity.y=d.jumpV;
         b.velocity.x=inp.moveX*this.face*d.speed*.9;
         b.velocity.z=inp.sideZ*d.speed*.7;
         this.setState('jump'); AudioEngine.sJump();
       }
       else{
+        this.crouching=false;
         const vx=inp.moveX*this.face*d.speed;
         const vz=inp.sideZ*d.speed*.9;
         b.velocity.x=lerp(b.velocity.x,vx,.4);
@@ -840,8 +825,11 @@ class Fighter{
         this.setStateIf(Math.abs(vx)>.4||Math.abs(vz)>.4?'walk':'idle');
       }
     }else{
-      // 空中:剣ボタン押した瞬間に空中斬り(溜め不可・押しっぱなし連発は不可)
-      if(inp.swordHeld && !prevSword && this.state==='jump'){ this.startSlash(); }
+      // 空中: 押した瞬間に空中斬り(押しっぱなし連発は不可)
+      this.crouching=false;
+      if((inp.vHeld||inp.hHeld) && !prevSword && this.state==='jump'){
+        this.startSlash(inp.vHeld?'v':'h');
+      }
       else if(this.state!=='slash') this.setStateIf('jump');
     }
     this.applyPose(dt);
@@ -851,87 +839,101 @@ class Fighter{
   tryHit(A,big){
     const opp=this.opponent;
     if(!opp||opp.dead)return;
-    if(opp.state==='down')return; // ダウン中は無敵(起き攻めループ防止)
+    if(opp.state==='down')return;                 // ダウン中は無敵(起き攻め防止)
     const dxs=opp.body.position.x-this.body.position.x;
     const adx=Math.abs(dxs);
     const dz=Math.abs(opp.body.position.z-this.body.position.z);
-    const range=this.def.reach+0.75+(big?0.35:0);  // ゆるめ
-    const inFront=Math.sign(dxs)===this.face || adx<0.6;
-    if(!inFront || adx>range || dz>1.7) return;      // 縦のズレも寛容
-    if(opp.body.position.y>opp.def.scale*.88+1.7) return; // 相手が飛び越えた
+    const range=this.def.reach+0.9+(big?0.35:0);  // 判定はゆるめ
+    const inFront=Math.sign(dxs)===this.face || adx<0.7;
+    if(!inFront || adx>range || dz>1.8) return;
+    const oy=opp.body.position.y-opp.def.scale*.88; // 相手の地面からの高さ
+    if(A.kind==='v' && opp.crouching){ AudioEngine.sDodge(); this.hitDone=true; return; } // 縦斬りはしゃがみで回避!
+    if(A.kind==='h' && oy>0.85){ AudioEngine.sDodge(); this.hitDone=true; return; }       // 横斬りはジャンプで回避!
+    if(A.kind==='v' && oy>2.3) return;             // はるか上空には届かない
     this.hitDone=true;
-    if(opp.guarding()){
-      opp.takeBlock(big?A.chip:0,this.face*A.kb*.6);
-      this.body.velocity.x=-this.face*1.5;
-    }else{
-      const wasStun=opp.state==='hitstun';
-      opp.takeHit(A.dmg,this.face*A.kb,big);
-      this.comboOn=wasStun?this.comboOn+1:1;
-      showCombo(this,this.comboOn);
-      if(big){ AudioEngine.sHit(true); shake(.28,.34); hitstop(.10); }
-      else{ AudioEngine.sHit(false); shake(.14,.16); hitstop(.05); }
-    }
+    const wasStun=opp.state==='hitstun';
+    opp.takeHit(A.dmg,this.face*A.kb,big);
+    this.comboOn=wasStun?this.comboOn+1:1;
+    showCombo(this,this.comboOn);
+    if(big){ AudioEngine.sHit(true); shake(.28,.34); hitstop(.10); }
+    else{ AudioEngine.sHit(false); shake(.14,.16); hitstop(.05); }
   }
 
-  /* ---- 手続きアニメーション ---- */
+  /* ---- 手続きアニメーション ----
+     腕の角度は armR.rotation.x = -p.aR。
+     刀は腕に垂直(sword.rotation.x=-π/2+swdP)なので、
+     腕を前に出す(aR≈1.2)と刃が上を向く正眼の構えになる。 */
   applyPose(dt){
     const d=this.def, t=this.stateT, S=this.state, s=d.scale;
-    // 目標姿勢: 腕(aL/aR/横aLy/aRy)、脚(lL/lR)、上半身の下げ(upperY)/前後傾(upperRX)
-    let p={aL:.15,aR:-.15,aLy:0,aRy:0,lL:0,lR:0,upperY:0,upperRX:0};
+    let p={aL:.15,aR:1.2,aLy:0,aRy:0,aRw:0,swdP:0,lL:0,lR:0,upperY:0,upperRX:0,upperRY:0};
     const bob=Math.sin(performance.now()/300)*.05;
     switch(S){
-      case 'idle': p.aL=.25+bob; p.aR=-.95-bob*.5; p.upperY=bob*.03; break;
+      case 'idle': p.aL=.25+bob; p.aR=1.2+bob*.3; p.upperY=bob*.03; break;
       case 'walk':{const w=Math.sin(performance.now()/90);
-        p.lL=w*.7;p.lR=-w*.7;p.aL=-w*.4;p.aR=-.95-w*.12;break;}
-      case 'guard': p.aL=-1.9;p.aR=-1.7;p.aLy=.5;p.aRy=-.4;p.upperRX=.1;p.lL=.25;p.lR=.25;p.upperY=-.05*s;break;
-      case 'jump': p.lL=-.9;p.lR=-.6;p.aL=-.5;p.aR=-1.0;break;
-      case 'charge':{ // 上段に振りかぶって溜める(刀が床を向く角度を通らない経路)
+        p.lL=w*.7;p.lR=-w*.7;p.aL=-w*.4;p.aR=1.2+w*.1;break;}
+      case 'crouch': p.upperY=-.33*s; p.lL=1.3; p.lR=1.1; p.aR=1.3; p.aL=.6; break;
+      case 'jump': p.lL=-.9;p.lR=-.6;p.aL=-.5;p.aR=1.25;break;
+      case 'charge':{
         const c=clamp(this.chargeT/CHARGE_READY,0,1);
-        p.aR=-2.0-c*.3; p.aL=-1.2; p.aLy=-.3; p.upperRX=-.06-c*.05;
+        if(this.chargeType==='h'){ // 横溜め: 腕を前に、手首をひねって刃を横に引く
+          p.aR=1.05; p.aRw=-1.7; p.aL=-.8;
+        }else{                     // 縦溜め: 頭上に振りかぶる
+          p.aR=2.4+c*.2; p.aL=-1.2; p.aLy=-.3;
+        }
+        p.upperRX=-.06-c*.05;
         p.lL=.30;p.lR=.30;p.upperY=-.08*s;
         break;}
-      case 'slash':{const A=this.attack;
-        // 振りかぶり→頭上を越えて前へ振り下ろす連続経路(腕が真下=床方向を通らない)
-        let aR;
-        if(t<A.startup) aR=lerp(-.95,-2.4,t/A.startup);              // 上段へ振りかぶり
-        else if(t<A.startup+A.active) aR=lerp(-2.4,-4.9,(t-A.startup)/A.active); // 頭上を越えて前へ振り抜き
-        else aR=lerp(-4.9,-.95,clamp((t-A.startup-A.active)/A.rec,0,1));
-        p.aR=aR; p.aL=-.2;
-        p.upperRX=-.14*Math.sin(clamp((t-A.startup)/A.active,0,1)*Math.PI);
+      case 'slash':case 'special':{
+        const A=this.attack, big=(S==='special');
+        const su=A.startup, ac=A.active, rc=A.rec;
+        if(A.kind==='v'){
+          // 縦斬り: 振りかぶり→前方へ振り下ろし(手首スナップで刃が前下へ)
+          const top=big?2.8:2.6, from=big?2.4:1.2, end=big?0.4:0.5, dl=big?1.05:0.95;
+          if(t<su){ p.aR=lerp(from,top,t/su); p.swdP=0; }
+          else if(t<su+ac){ const q=(t-su)/ac;
+            p.aR=lerp(top,end,q); p.swdP=lerp(0,dl,q); }
+          else{ const q=clamp((t-su-ac)/rc,0,1);
+            p.aR=lerp(end,1.2,q); p.swdP=lerp(dl,0,q); }
+          p.aL=-.3;
+          p.upperRX=-.12*Math.sin(clamp((t-su)/ac,0,1)*Math.PI);
+        }else{
+          // 横斬り: 腕を前に固定し、腕ごとひねって刃を水平になぎ払う
+          const wid=big?2.0:1.7;
+          p.aR=big?1.0:1.05;
+          if(t<su){ p.aRw=lerp(0,-wid,t/su); p.upperRY=lerp(0,-.4,t/su); }
+          else if(t<su+ac){ const q=(t-su)/ac;
+            p.aRw=lerp(-wid,wid,q); p.upperRY=lerp(-.4,.4,q); }
+          else{ const q=clamp((t-su-ac)/rc,0,1);
+            p.aRw=lerp(wid,0,q); p.upperRY=lerp(.4,0,q); }
+          p.aL=.5;
+        }
+        if(big){p.lL=.15;p.lR=-.1;}
         break;}
-      case 'special':{const A=this.attack;
-        // 溜め構え(-2.0付近)からさらに大きく頭上を越える一撃
-        let aR;
-        if(t<A.startup) aR=lerp(-2.0,-2.6,t/A.startup);
-        else if(t<A.startup+A.active) aR=lerp(-2.6,-5.1,(t-A.startup)/A.active);
-        else aR=lerp(-5.1,-.95,clamp((t-A.startup-A.active)/A.rec,0,1));
-        p.aR=aR; p.aL=lerp(-1.2,-.5,clamp((t-A.startup)/A.active,0,1));
-        p.upperRX=(t<A.startup? -.15 : .2*Math.sin(clamp((t-A.startup)/A.active,0,1)*Math.PI));
-        p.lL=.15;p.lR=-.1;
-        break;}
-      case 'hitstun': p.upperRX=.35;p.aL=-.5;p.aR=-1.2;p.lL=-.2;break;
-      case 'blockstun': p.aL=-1.9;p.aR=-1.7;p.aLy=.5;p.aRy=-.4;p.upperRX=.2;break;
+      case 'hitstun': p.upperRX=.35;p.aL=-.5;p.aR=1.0;p.lL=-.2;break;
       case 'down': p.upperRX=Math.min(1.25,t*4);
         p.aL=.6;p.aR=.6;p.lL=-.35;p.lR=-.15;break;
       case 'ko': p.upperRX=Math.min(1.3,t*3.2);
         p.aL=.6;p.aR=.6;p.lL=-.4;p.lR=-.2;break;
       case 'win':{const w=Math.min(1,t*3);
-        p.aR=lerp(-.95,-2.5,w);p.aL=.35;p.upperY=Math.abs(Math.sin(t*6))*.09;break;}
+        p.aR=lerp(1.2,2.3,w);p.aL=.35;p.upperY=Math.abs(Math.sin(t*6))*.09;break;}
     }
-    const k=1-Math.pow(.0001,dt); // フレームレート非依存スムージング
+    const k=1-Math.pow(.0001,dt);
     this.armL.rotation.x=lerp(this.armL.rotation.x,-p.aL,k);
     this.armR.rotation.x=lerp(this.armR.rotation.x,-p.aR,k);
     this.armL.rotation.z=lerp(this.armL.rotation.z,p.aLy,k);
     this.armR.rotation.z=lerp(this.armR.rotation.z,p.aRy,k);
+    this.armR.rotation.y=lerp(this.armR.rotation.y,p.aRw,k);
+    this._swdP=lerp(this._swdP,p.swdP,k);
+    this.sword.rotation.x=-Math.PI/2+this._swdP;
     this.legL.rotation.x=lerp(this.legL.rotation.x,-p.lL,k);
     this.legR.rotation.x=lerp(this.legR.rotation.x,-p.lR,k);
-    // ★上半身だけを上下&傾ける(脚=bodyG直下 は地面に残る)
     this.upper.position.y=lerp(this.upper.position.y,p.upperY,k);
     this._upperRX=lerp(this._upperRX,p.upperRX,k);
+    this._upperRY=lerp(this._upperRY,p.upperRY,k);
   }
   updateSaber(dt){
-    // ダウン/KO中は刃を収納(消灯)し、床へ刺さる見た目を防ぐ
-    // 消灯はすばやく、再点灯はゆっくり(腕が構えに戻ってから伸びるので安全)
+    // ダウン/KO中は刃を収納(消灯)。消灯はすばやく、再点灯はゆっくり
+    // (腕が構えに戻ってから伸びるので床に刺さらない)
     const off=(this.state==='down'||this.state==='ko');
     const kExt=1-Math.pow(off? .0000001 : .03, dt||1/60);
     this.bladeExt=lerp(this.bladeExt??1,off?0:1,kExt);
@@ -940,7 +942,7 @@ class Fighter{
     if(this.state==='charge'){
       const c=clamp(this.chargeT/CHARGE_READY,0,1);
       boost=1+c*1.7;
-      if(this.chargeT>=CHARGE_MIN) boost+=0.25+Math.sin(performance.now()/55)*0.25; // 溜め完了で脈動
+      if(this.chargeT>=CHARGE_MIN) boost+=0.25+Math.sin(performance.now()/55)*0.25;
     }else{
       boost=this.saberBoost||1;
     }
@@ -962,7 +964,6 @@ class Fighter{
     const b=this.body;
     b.position.x=clamp(b.position.x,-STAGE_X,STAGE_X);
     b.position.z=clamp(b.position.z,-STAGE_Z,STAGE_Z);
-    // 足元(mesh基準y=0)が接地。上半身だけを下げているのでめり込まない
     this.mesh.position.set(b.position.x,Math.max(0,b.position.y-this.def.scale*.88),b.position.z);
     if(this.opponent&&!this.dead){
       const dx=this.opponent.mesh.position.x-this.mesh.position.x;
@@ -973,6 +974,7 @@ class Fighter{
       this.mesh.rotation.y=cur+diff*.2;
     }
     this.upper.rotation.x=-(this._upperRX||0);
+    this.upper.rotation.y=this._upperRY||0;
     this.shadowRing.material.opacity=this.grounded?.35:.18;
     this.shadowRing.position.y=.02-this.mesh.position.y+0.02;
     this.updateSaber(dt);
@@ -980,39 +982,48 @@ class Fighter{
 }
 
 /* ============================================================
-   7. CPU AI(刀+溜め必殺対応)
+   7. CPU AI(縦/横の使い分け+しゃがみ/ジャンプ回避)
 ============================================================ */
 class CpuBrain{
   constructor(me,foe){
     this.me=me;this.foe=foe;
-    this.decideT=0; this.plan={}; this.swordT=0;
-    this.guardT=0; this.jumpCd=0; this.strafe=0; this.strafeT=0;
+    this.decideT=0; this.plan={};
+    this.holdT=0; this.holdType='v';
+    this.crouchHold=0; this.jumpCd=0;
+    this.strafe=0; this.strafeT=0;
   }
   think(dt){
     const inp=newInput();
     const me=this.me, foe=this.foe;
-    // 攻撃/被弾中は入力しない
-    if(['slash','special','hitstun','blockstun','down','ko','win'].includes(me.state)){
-      this.swordT=0; return inp;
+    if(['slash','special','hitstun','down','ko','win'].includes(me.state)){
+      this.holdT=0; return inp;
     }
     this.jumpCd-=dt;
     const dist=Math.abs(foe.body.position.x-me.body.position.x);
-    const inRange=dist < me.def.reach+0.7;
 
-    // ガード反応(相手の溜め/斬撃に対して たまに)
-    if(this.guardT>0){ this.guardT-=dt; inp.guard=true; this.swordT=0; return inp; }
-    if(me.state!=='charge'){
-      if((foe.state==='charge' && dist<4 && Math.random()<0.03) ||
-         (foe.state==='slash' && dist<3 && Math.random()<0.07) ||
-         (foe.state==='special' && dist<4.5 && Math.random()<0.06)){
-        this.guardT=rand(.3,.6); inp.guard=true; return inp;
-      }
+    // --- 回避リアクション ---
+    if(this.crouchHold>0){ this.crouchHold-=dt; inp.crouch=true; return inp; }
+    const foeAtk=(foe.state==='slash'||foe.state==='special')?foe.attack:null;
+    if(foeAtk && dist<3.6 && foe.stateT<foeAtk.startup){
+      if(foeAtk.kind==='v' && Math.random()<0.05){
+        this.crouchHold=rand(.35,.6); inp.crouch=true; this.holdT=0; return inp; }
+      if(foeAtk.kind==='h' && this.jumpCd<=0 && Math.random()<0.05){
+        inp.jump=true; this.jumpCd=1.1; this.holdT=0; return inp; }
+    }
+    if(foe.state==='charge' && foe.chargeT>0.3 && dist<4 && Math.random()<0.03){
+      if(foe.chargeType==='v'){ this.crouchHold=rand(.4,.7); inp.crouch=true; }
+      else if(this.jumpCd<=0){ inp.jump=true; this.jumpCd=1.1; }
+      this.holdT=0; return inp;
     }
 
-    // 剣ホールド継続(短=通常斬り / 長=溜め必殺)
-    if(this.swordT>0){ this.swordT-=dt; inp.swordHeld=true; return inp; }
+    // --- 攻撃ホールド(短=通常/長=溜め必殺) ---
+    if(this.holdT>0){
+      this.holdT-=dt;
+      if(this.holdType==='v')inp.vHeld=true; else inp.hHeld=true;
+      return inp;
+    }
 
-    // まわり込み用ストレイフ
+    // まわり込みストレイフ
     this.strafeT-=dt;
     if(this.strafeT<=0){ this.strafeT=rand(.5,1.3);
       this.strafe=(Math.random()<.4?0:(Math.random()<.5?-1:1)); }
@@ -1020,13 +1031,19 @@ class CpuBrain{
     this.decideT-=dt;
     if(this.decideT<=0){
       this.decideT=rand(.2,.45);
+      const inRange=dist < me.def.reach+0.8;
       const r=Math.random();
       if(inRange){
-        if(r<.44){ this.swordT=rand(.10,.16); this.plan={}; }        // 通常斬り
-        else if(r<.60){ this.swordT=rand(.62,.82); this.plan={}; }   // 溜め必殺(前もって溜める)
-        else if(r<.72){ this.plan={moveX:-1}; }                      // 距離をとる
-        else if(r<.82){ this.plan={moveX:0}; }
-        else if(r<.92){ this.plan={sideZ:this.strafe||1}; }          // まわり込み
+        // しゃがんでいる相手には横斬り、飛んでいる相手には縦斬りが有効
+        const foeCrouch=foe.crouching, foeAir=(foe.body.position.y-foe.def.scale*.88)>0.5;
+        if(foeCrouch){ this.holdType='h'; this.holdT=rand(.10,.16); this.plan={}; }
+        else if(foeAir){ this.holdType='v'; this.holdT=rand(.10,.16); this.plan={}; }
+        else if(r<.26){ this.holdType='v'; this.holdT=rand(.10,.16); this.plan={}; }
+        else if(r<.50){ this.holdType='h'; this.holdT=rand(.10,.16); this.plan={}; }
+        else if(r<.64){ this.holdType=Math.random()<.5?'v':'h'; this.holdT=rand(.62,.85); this.plan={}; } // 溜め必殺
+        else if(r<.76){ this.plan={moveX:-1}; }
+        else if(r<.84){ this.plan={moveX:0}; }
+        else if(r<.94){ this.plan={sideZ:this.strafe||1}; }
         else if(this.jumpCd<=0){ inp.jump=true; this.jumpCd=1.2; this.plan={}; }
       }else if(dist<4.6){
         if(r<.55) this.plan={moveX:1};
@@ -1040,7 +1057,6 @@ class CpuBrain{
     const P=this.plan||{};
     inp.moveX=P.moveX||0;
     inp.sideZ=P.sideZ||0;
-    if(!inp.sideZ && dist>1.5 && dist<4 && Math.random()<.02) inp.sideZ=this.strafe;
     return inp;
   }
 }
@@ -1083,11 +1099,15 @@ function updateHUD(){
   set(G.p1,'hp1','hpr1','cd1','cd1w');
   set(G.p2,'hp2','hpr2','cd2','cd2w');
   $('timer').textContent=Math.ceil(Math.max(0,G.timer));
-  // プレイヤー側:剣ボタンの見た目(溜め/完了)
-  const bS=$('bS');
-  if(bS){
-    bS.classList.toggle('charge',G.p1.charging);
-    bS.classList.toggle('ready',G.p1.charging&&G.p1.chargeT>=CHARGE_MIN);
+  // 溜め中のボタンを光らせる
+  const bV=$('bV'), bY=$('bY');
+  if(bV&&bY){
+    const t=G.p1.charging?G.p1.chargeType:null;
+    const rdy=G.p1.charging&&G.p1.chargeT>=CHARGE_MIN;
+    bV.classList.toggle('chargeGlow',t==='v');
+    bV.classList.toggle('readyGlow',t==='v'&&rdy);
+    bY.classList.toggle('chargeGlow',t==='h');
+    bY.classList.toggle('readyGlow',t==='h'&&rdy);
   }
 }
 function updatePips(){
@@ -1259,7 +1279,6 @@ function loop(){
       G.p1.update(dt,inp1);
       G.p2.update(dt,inp2);
       world.step(FIXED,dt,4);
-      // キャラ同士の押し合い(すり抜け防止)
       const a=G.p1.body,b2=G.p2.body;
       const dx=b2.position.x-a.position.x, dz=b2.position.z-a.position.z;
       const minD=(G.p1.def.width+G.p2.def.width)*.34;
@@ -1274,7 +1293,6 @@ function loop(){
       updateParticles(dt);
       updateHUD();
     }
-    // カメラ: 2人の中間を追従
     const p1=G.p1.mesh.position, p2=G.p2.mesh.position;
     const midX=(p1.x+p2.x)/2, midZ=(p1.z+p2.z)/2;
     const sep=Math.hypot(p1.x-p2.x,p1.z-p2.z);
