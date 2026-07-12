@@ -410,16 +410,19 @@ const edgeMat=new THREE.MeshStandardMaterial({color:0xffd24a,emissive:0x6a5000,e
   bar.position.set(s*(STAGE_X+.6),.06,0); scene.add(bar);
 });
 
-const pillarGeo=new THREE.CylinderGeometry(.5,.7,6,6);
-for(let i=0;i<10;i++){
-  const p=new THREE.Mesh(pillarGeo,new THREE.MeshStandardMaterial({
-    color:new THREE.Color().setHSL(.7+Math.random()*.1,.4,.14),roughness:.85}));
-  const ang=(i/10)*Math.PI*2;
-  p.position.set(Math.cos(ang)*16,2.4,Math.sin(ang)*11-2);
-  p.castShadow=true; scene.add(p);
-  const orb=new THREE.Mesh(new THREE.SphereGeometry(.32,8,8),
+// 遠景の星空パーティクル(柱は視界を遮るため廃止)
+// 代わりに低い灯篭を並べて背景の雰囲気と光源を補う(キャラの視界は遮らない)
+const lanternGeo=new THREE.CylinderGeometry(.16,.2,.5,8);
+for(let i=0;i<14;i++){
+  const post=new THREE.Mesh(lanternGeo,new THREE.MeshStandardMaterial({color:0x2a2542,roughness:.8}));
+  const ang=(i/14)*Math.PI*2;
+  post.position.set(Math.cos(ang)*15,.25,Math.sin(ang)*10-2);
+  post.castShadow=true; scene.add(post);
+  const orb=new THREE.Mesh(new THREE.SphereGeometry(.16,8,8),
     new THREE.MeshBasicMaterial({color:0xffce66}));
-  orb.position.copy(p.position); orb.position.y=5.7; scene.add(orb);
+  orb.position.copy(post.position); orb.position.y=.56; scene.add(orb);
+  const lt=new THREE.PointLight(0xffce66,.5,7,2);
+  lt.position.copy(orb.position); scene.add(lt);
 }
 {
   const g=new THREE.BufferGeometry();
@@ -669,10 +672,6 @@ class Fighter{
       new THREE.MeshBasicMaterial({color:sGlow,transparent:true,opacity:.2,
         blending:THREE.AdditiveBlending,depthWrite:false}));
     this.bladeGlow2.position.y=bladeY; this.sword.add(this.bladeGlow2);
-    this.bladeTip=new THREE.Mesh(new THREE.SphereGeometry(.09,10,10),
-      new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.9,
-        blending:THREE.AdditiveBlending,depthWrite:false}));
-    this.bladeTip.position.y=bladeY-bladeLen/2; this.sword.add(this.bladeTip);
     this.tipLight=new THREE.PointLight(sCol,1.1,4.2,2);
     this.tipLight.position.y=bladeY-bladeLen*0.35; this.sword.add(this.tipLight);
     this._glowBase={g1:.5,g2:.2,tip:1.1};
@@ -955,8 +954,7 @@ class Fighter{
     const sc=1+(boost-1)*.5;
     this.bladeGlow.scale.set(sc,ext,sc);
     this.bladeGlow2.scale.set(sc,ext,sc);
-    this.bladeTip.position.y=-0.16-L*ext;
-    this.bladeTip.material.opacity=clamp((.8+(boost-1)*.1)*ext,0,1);
+    this.tipLight.position.y=-0.16-L*ext*0.7;
     this.tipLight.intensity=gb.tip*boost*ext;
     this.tipLight.distance=3.6+boost*1.3;
   }
